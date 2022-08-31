@@ -1,11 +1,21 @@
 import React from 'react'
+import Header from './Header'
+import Footer from './Footer'
+import EmotionBoard from './EmotionBoard'
 
 function App() {
   return (
-    <div>
-      <h1>App</h1>
-      <p>React development has begun!</p>
-    </div>
+    <>
+      <div>
+        <Header />
+      </div>
+      <div>
+        <EmotionBoard />
+      </div>
+      <div>
+        <Footer />
+      </div>
+    </>
   )
 }
 
