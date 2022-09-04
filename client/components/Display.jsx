@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { getEntriesApi } from '../api'
 
-function Display(props) {
-  console.log('in display', props)
+function Display() {
+  const [entries, setEntries] = useState([])
+  console.log('in emo', entries)
 
+  const getEntries = async () => {
+    const data = await getEntriesApi()
+    setEntries(data)
+  }
   return (
     <div>
       <h1>TODO: Add links to my socials</h1>
-      {props.entries?.map((entry) => {
-        ;<>
-          <div key={entry?.id}>
-            <p>{entry?.songLink}</p>
-            <p>{entry?.songText}</p>
-            <img src={entry?.image} alt="A fitting description" />
-            <p>{entry?.imageText}</p>
+      <button onClick={getEntries}>Hit me</button>
+      {entries.map((entry) => (
+        <>
+          <div key={entry.id}>
+            <a href={entry.songLink}>
+              <p>My song</p>
+            </a>
+            <p>Words about the song: {entry.songText}</p>
+            <img src={entry.image} alt="A fitting description" />
+            <p>Words about the images: {entry.imageText}</p>
           </div>
         </>
-      })}
+      ))}
     </div>
   )
 }
