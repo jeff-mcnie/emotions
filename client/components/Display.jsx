@@ -1,27 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getEntriesApi } from '../api'
 
 function Display() {
   const [entries, setEntries] = useState([])
-  console.log('in emo', entries)
 
   const getEntries = async () => {
     const data = await getEntriesApi()
     setEntries(data)
   }
+  console.log(entries)
+
+  useEffect(() => {
+    getEntries()
+  }, [])
+
   return (
     <div>
-      <h1>TODO: Add links to my socials</h1>
-      <button onClick={getEntries}>Hit me</button>
       {entries.map((entry) => (
         <>
+          <h4>Entry</h4>
           <div key={entry.id}>
             <a href={entry.songLink}>
-              <p>My song</p>
+              <h4>My song</h4>
             </a>
-            <p>Words about the song: {entry.songText}</p>
-            <img src={entry.image} alt="A fitting description" />
-            <p>Words about the images: {entry.imageText}</p>
+            <h4>Words about the song:</h4>
+            <p>{entry.songText}</p>
+            {entry.hasImages == 1 && (
+              <img src={entry.image} alt="A meaningful descriptive text" />
+            )}
+            {entry.hasImages == 1 && (
+              <>
+                <h4>Words about the images:</h4>
+                <p>{entry.imageText}</p>
+              </>
+            )}
           </div>
         </>
       ))}
