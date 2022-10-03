@@ -3,14 +3,19 @@ const config = require('./knexfile').development
 const connection = require('knex')(config)
 
 async function getTheEntries(db = connection) {
-    return await db('entries').select('id', 'song_link AS songLink', 'song_text AS songText', 'has_image AS hasImages', 'image', 'image_text AS imageText' )
+  return await db('entries').select('id', 'song_link AS songLink', 'song_text AS songText', 'has_image AS hasImages', 'image', 'image_text AS imageText' )
 } 
 
 async function getOneEntry(id, db = connection) {
   return await db('entries').where(id, 'id').select('id', 'song_link AS songLink', 'song_text AS songText', 'has_image AS hasImages', 'image', 'image_text AS imageText')
 }
 
+async function addEntry(entry, db = connection) {
+  return await db('entries').insert(entry)
+}
+
 module.exports = {
   getTheEntries,
   getOneEntry,
+  addEntry
 }

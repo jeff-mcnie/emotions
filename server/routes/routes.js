@@ -16,4 +16,12 @@ router.get('/:id', async (req,res) => {
   res.json(entry)
 })
 
+router.post('/', async (req,res) => {
+  const entry = req.body
+  const newEntry = {
+    song_link: entry.song,
+    song_text: entry.songText,
+    has_image: 
+  }
+})
 module.exports = router
